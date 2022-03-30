@@ -22,16 +22,6 @@ bool InitializeRenderer()
 		return false;
 	}
 
-	/*CONSOLE_CURSOR_INFO info;
-	info.dwSize = 100;
-	info.bVisible = false;
-
-	if (false == SetConsoleCursorInfo
-		(s_consoleHandle, &info))
-	{
-		return false;
-	}*/
-
 	return true;
 }
 
@@ -41,7 +31,8 @@ void RenderMap()
 	const static CONSOLE_CURSOR_INFO info = { 100, false };
 
 	SetConsoleCursorPosition(s_consoleHandle, initialPos);
-
+	// Init에서 해줬을 때 콘솔 창이 변하거나 변화가 생기면
+	// 다시 포지션이 깨졌기에 렌더 해줄 때마다 초기값으로 설정함
 	SetConsoleCursorInfo(s_consoleHandle, &info);
 
 	for (int i = 0; i < MAP_SIZE; ++i)

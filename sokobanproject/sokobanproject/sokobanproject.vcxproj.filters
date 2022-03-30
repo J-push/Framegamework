@@ -27,7 +27,10 @@
     <ClCompile Include="Framework\Game.c">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.c">
+    <ClCompile Include="Framework\Renderer.c">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Input.c">
       <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +41,10 @@
     <ClInclude Include="Framework\Game.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="Framework\Input.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Renderer.h">
       <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
