@@ -13,6 +13,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="헤더 파일\Framework">
+      <UniqueIdentifier>{60fcb986-dc2b-40d5-8a99-d84424357c10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.c">
@@ -21,10 +24,16 @@
     <ClCompile Include="stdafx.c">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Game.c">
+      <Filter>헤더 파일\Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Game.h">
+      <Filter>헤더 파일\Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
