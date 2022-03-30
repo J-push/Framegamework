@@ -1,6 +1,6 @@
-﻿#include <stdio.h>
+﻿#include "stdafx.h"
 
-int main()
+int main(void)
 {
-	puts("Hello World");
+	puts("Hello, World!");
 }
