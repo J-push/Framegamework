@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Renderer.h"
 #include "Input.h"
+#include "Timer.h"
 
 bool Initialize()
 {
@@ -9,6 +10,9 @@ bool Initialize()
 	{
 		return false;
 	}
+
+	InitializeTimer();
+
 	return true;
 }
 
@@ -21,24 +25,21 @@ void processInput()
 
 void update()
 {
-	if (GetButton(KEYCODE_W))
+	// 0.5초 간격으로 특정 메시지를 깜빡이기
+	static float timer = 0.0f;
+	static bool canShowMessage = false;
+	
+	timer += GetDeltaTime();
+
+	if (timer > 0.5f)
 	{
-		SetKeyMessage(KEYCODE_W);
+		timer = 0;
+		canShowMessage = !canShowMessage;
 	}
 
-	else if (GetButton(KEYCODE_D))
+	if (canShowMessage)
 	{
-		SetKeyMessage(KEYCODE_D);
-	}
-
-	else if (GetButton(KEYCODE_S))
-	{
-		SetKeyMessage(KEYCODE_S);
-	}
-
-	else if (GetButton(KEYCODE_A))
-	{
-		SetKeyMessage(KEYCODE_A);
+		SetMessage("Gap");
 	}
 }
 
@@ -53,6 +54,9 @@ int32_t Run()
 	// Game Loop의 전체를 Frame이라 한다.
 	while (true)
 	{
+		// 프레임 시작 ----- 다음 프레임 시작
+		// dt
+		UpdateTimer();
 		// 입력 처리
 		processInput();
 		// 업데이트

@@ -39,17 +39,24 @@ void RenderMap()
 	// 다시 포지션이 깨졌기에 렌더 해줄 때마다 초기값으로 설정함
 	SetConsoleCursorInfo(s_consoleHandle, &info);
 
+	/*sprintf_s(s_map[0], sizeof(s_map[0]), "DeltaTime : %f", GetDeltaTime());
+	*/
+
+	/*int32_t fps = 1 / GetDeltaTime();
+	sprintf_s(s_map[1], sizeof(s_map[1]), "FPS : %d", fps);*/
+	// 1 : deltaTime(초단위) = x : 1
+	// x = 1 / deltaTime
+
 	for (size_t i = 0; i < MAP_SIZE; ++i)
 	{
 		puts(s_map[i]);
 	}
 
-
 	// 출력 후에 현재 프레임을 지움.
 	clear();
 }
 
-void SetKeyMessage(int32_t keyCode)
+void SetMessage(const char* message)
 {
-	sprintf_s(s_map[0],sizeof(s_map[0]), "%c키가 눌림", keyCode);
+	strcpy_s(s_map[0], MAP_SIZE , message);
 }
