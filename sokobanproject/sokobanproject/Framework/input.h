@@ -3,10 +3,10 @@
 
 typedef enum KeyCode
 {
-	W = 'w',
-	A = 'a',
-	S = 's',
-	D = 'd',
+	KEYCODE_W = 'W',
+	KEYCODE_A = 'A',
+	KEYCODE_S = 'S',
+	KEYCODE_D = 'D',
 }EKeyCode;
 
 void UpdateInput();

@@ -3,14 +3,18 @@
 
 #define MAP_SIZE 24
 
-// fearing (페어링) 을 방지하기위해 더블버퍼링을 쓴다. 버퍼를 두개 씀.
-
-static char s_map[MAP_SIZE][MAP_SIZE] = {
-	"***********",
-	"* Sokoban *",
-	"***********"
-};
+static char s_map[MAP_SIZE][MAP_SIZE];
 static HANDLE s_consoleHandle;
+
+void clear()
+{
+	memset(s_map, ' ', sizeof(s_map));
+
+	for (size_t i = 0; i < MAP_SIZE; ++i)
+	{
+		s_map[i][MAP_SIZE - 1] = '\0';
+	}
+}
 
 bool InitializeRenderer()
 {
@@ -35,8 +39,17 @@ void RenderMap()
 	// 다시 포지션이 깨졌기에 렌더 해줄 때마다 초기값으로 설정함
 	SetConsoleCursorInfo(s_consoleHandle, &info);
 
-	for (int i = 0; i < MAP_SIZE; ++i)
+	for (size_t i = 0; i < MAP_SIZE; ++i)
 	{
 		puts(s_map[i]);
 	}
+
+
+	// 출력 후에 현재 프레임을 지움.
+	clear();
+}
+
+void SetKeyMessage(int32_t keyCode)
+{
+	sprintf_s(s_map[0],sizeof(s_map[0]), "%c키가 눌림", keyCode);
 }

@@ -10,3 +10,5 @@ bool InitializeRenderer();
 
 /// 맵을 그린다.
 void RenderMap();
+
+void SetKeyMessage(int32_t keyCode);
