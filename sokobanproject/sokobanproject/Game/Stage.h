@@ -21,3 +21,10 @@ typedef enum StageLevel
 
 // 스테이지를 로딩한다.
 void LoadStage(EStageLevel level);
+
+
+// 스테이지를 업데이트한다.
+void UpdateStage();
+
+// 맵을 반환한다.
+const char** GetMap();
