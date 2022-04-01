@@ -145,6 +145,8 @@
     <ClCompile Include="Framework\Game.c" />
     <ClCompile Include="Framework\Input.c" />
     <ClCompile Include="Framework\Renderer.c" />
+    <ClCompile Include="Game\Box.c" />
+    <ClCompile Include="Game\Player.c" />
     <ClCompile Include="Game\Stage.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="stdafx.c">
@@ -156,10 +158,13 @@
     <ClInclude Include="Framework\Game.h" />
     <ClInclude Include="Framework\Input.h" />
     <ClInclude Include="Framework\Renderer.h" />
+    <ClInclude Include="Game\Box.h" />
+    <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Stage.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Type.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

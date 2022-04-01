@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Stage.h"
+#include "Player.h"
+#include "Framework/Input.h"
 
 static char s_map[MAP_SIZE][MAP_SIZE];
 static int32_t s_goalCount = 0; // 목표 갯수
@@ -7,16 +9,20 @@ static int32_t s_boxOnGoalCount = 0; // 현재 맞는 개수
 static int32_t s_playerX = 0;
 static int32_t s_playerY = 0;
 
-
 bool parseMapType(int i, int j, char mapType)
 {
 	switch (mapType)
 	{
-		// 각 맵 타입별로 해줘야 하는 일들
+	/*case 'P':
+		
+		break;
+	case ' ':
 
+	default:
+		assert(false);
+		break;*/
 	}
 	//반환은 행에 다다랐을 떄
-
 }
 
 void clearStage()
@@ -26,7 +32,6 @@ void clearStage()
 	{
 		s_map[i][MAP_SIZE - 1] = '\0';
 	}
-
 	s_goalCount = 0;
 	s_boxOnGoalCount = 0;
 	s_playerX = 0;
@@ -53,6 +58,7 @@ void LoadStage(EStageLevel level)
 			char ch = fgetc(fp);
 
 			if (false == parseMapType(i, j ,ch))
+				//i = linenumber, charactercount , ch
 			{
 				break;
 			}
@@ -71,14 +77,38 @@ void LoadStage(EStageLevel level)
 	fclose(fp);
 }
 
-
 void UpstateStage()
 {
 	// 입력에 대해서 처리를 함
+	if (GetButton(KEYCODE_W))
+	{
+		MovePlayer(DIR_UP);
+		{
+			int x = 0;
+			int y = 0;
+			if (false == isValid(x, y))
+			{
+				return;
+			}
+			EMapType mapType = GetMapType(x, y - 1);
 
+			switch (mapType)
+			{
+			case MAPTYPE_WALL:
+				return;
+			case MAPTYPE_BOX:
+				MoveBox(DIR_UP);
+				break;
+			}
+		}
+	}
 	// 게임이 클리어 됐는지도 파악함
+	if (IsClearStage())
+	{
 
+	}
 }
+
 
 const char** GetMap()
 {

@@ -1,3 +1,3 @@
 #pragma once
 
-#define MAP_SIZE 24
+#define MAP_SIZE 50

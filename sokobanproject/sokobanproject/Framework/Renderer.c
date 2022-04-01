@@ -59,7 +59,3 @@ void RenderMap()
 	clear();
 }
 
-//void SetMessage(const char* message)
-//{
-//	strcpy_s(s_map[0], MAP_SIZE , message);
-//}
