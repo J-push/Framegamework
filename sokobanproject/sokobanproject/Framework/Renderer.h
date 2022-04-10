@@ -11,4 +11,4 @@ bool InitializeRenderer();
 /// 맵을 그린다.
 void RenderMap();
 
-void SetMessage(const char* message);
+//void SetMessage(const char* message);

@@ -145,18 +145,21 @@
     <ClCompile Include="Framework\Game.c" />
     <ClCompile Include="Framework\Input.c" />
     <ClCompile Include="Framework\Renderer.c" />
+    <ClCompile Include="Framework\Timer.c" />
+    <ClCompile Include="Game\Stage.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="stdafx.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Timer.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Game.h" />
     <ClInclude Include="Framework\Input.h" />
     <ClInclude Include="Framework\Renderer.h" />
+    <ClInclude Include="Framework\Timer.h" />
+    <ClInclude Include="Game\Stage.h" />
+    <ClInclude Include="Macro.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

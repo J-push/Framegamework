@@ -3,6 +3,8 @@
 #include "Renderer.h"
 #include "Input.h"
 #include "Timer.h"
+#include "Game/Stage.h"
+
 
 bool Initialize()
 {
@@ -12,6 +14,8 @@ bool Initialize()
 	}
 
 	InitializeTimer();
+
+	LoadStage(STAGE_01);
 
 	return true;
 }
@@ -25,22 +29,7 @@ void processInput()
 
 void update()
 {
-	// 0.5초 간격으로 특정 메시지를 깜빡이기
-	static float timer = 0.0f;
-	static bool canShowMessage = false;
-	
-	timer += GetDeltaTime();
-
-	if (timer > 0.5f)
-	{
-		timer = 0;
-		canShowMessage = !canShowMessage;
-	}
-
-	if (canShowMessage)
-	{
-		SetMessage("Gap");
-	}
+	UpdateStage();
 }
 
 void render()

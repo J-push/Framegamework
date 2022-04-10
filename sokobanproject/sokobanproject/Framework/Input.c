@@ -20,7 +20,6 @@ bool isKeyDown(int32_t keyCode)
 	}
 }
 
-
 void UpdateInput()
 {
 	memcpy(s_prevKeyStates, s_currentKeyStates, sizeof(s_prevKeyStates));

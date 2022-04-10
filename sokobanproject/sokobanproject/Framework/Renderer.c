@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Renderer.h"
-
-#define MAP_SIZE 24
+#include "Game\Stage.h"
 
 static char s_map[MAP_SIZE][MAP_SIZE];
 static HANDLE s_consoleHandle;
@@ -47,6 +46,10 @@ void RenderMap()
 	// 1 : deltaTime(√ ¥‹¿ß) = x : 1
 	// x = 1 / deltaTime
 
+	const char** stage = GetMap();
+
+	memcpy(s_map, stage, sizeof(s_map));
+
 	for (size_t i = 0; i < MAP_SIZE; ++i)
 	{
 		puts(s_map[i]);
@@ -56,7 +59,3 @@ void RenderMap()
 	clear();
 }
 
-void SetMessage(const char* message)
-{
-	strcpy_s(s_map[0], MAP_SIZE , message);
-}
