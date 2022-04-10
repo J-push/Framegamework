@@ -12,6 +12,4 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <Macro.h>
-#include <Type.h>
-
 #include <Windows.h>

@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 typedef enum MapType
 {
 	MAPTYPE_WALL = '#',
@@ -18,10 +16,8 @@ typedef enum StageLevel
 	STAGE_MAX
 }EStageLevel;
 
-
 // 스테이지를 로딩한다.
 void LoadStage(EStageLevel level);
-
 
 // 스테이지를 업데이트한다.
 void UpdateStage();

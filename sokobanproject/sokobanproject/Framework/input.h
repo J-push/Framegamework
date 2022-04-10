@@ -1,6 +1,14 @@
 #pragma once
 #include <stdbool.h>
 
+typedef enum KeyCode
+{
+	KEYCODE_W = 'W',
+	KEYCODE_A = 'A',
+	KEYCODE_S = 'S',
+	KEYCODE_D = 'D',
+}EKeyCode;
+
 void UpdateInput();
 
 bool GetButtonDown(EKeyCode keyCode);
