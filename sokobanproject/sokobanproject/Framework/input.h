@@ -7,6 +7,7 @@ typedef enum KeyCode
 	KEYCODE_A = 'A',
 	KEYCODE_S = 'S',
 	KEYCODE_D = 'D',
+	KEYCODE_R = 'R'
 }EKeyCode;
 
 void UpdateInput();
