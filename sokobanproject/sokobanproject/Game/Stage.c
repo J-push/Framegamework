@@ -6,7 +6,7 @@
 static int stageNum = 1;
 static char s_map[MAP_SIZE][MAP_SIZE];
 static int32_t s_goalCount = 0; // 목표 개수
-static int32_t s_boxOnGoalCount = 0; // 현재 맞는 개수
+static int32_t s_boxInTheGoalCount = 0; // 현재 넣은 개수
 static int32_t s_playerX = 0;
 static int32_t s_playerY = 0;
 
@@ -26,7 +26,7 @@ typedef struct
 
 static Goal goal[Max_goalCount];
 
-bool GoalPos(int posX, int posY)
+bool GoalPosition(int posX, int posY)
 {
 	for (int i = 0; i < s_goalCount; i++)
 	{
@@ -38,11 +38,11 @@ bool GoalPos(int posX, int posY)
 	return false;
 }
 
-bool BoxOnGoal(int posX, int posY)
+bool BoxInTheGoal(int posX, int posY)
 {
 	if (s_map[posX][posY] == 'O')
 	{
-		s_boxOnGoalCount += 1;
+		s_boxInTheGoalCount += 1;
 		return true;
 	}
 	return false;
@@ -114,7 +114,7 @@ void BoxMove(Box box, EKeyCode keyCode)
 		s_NboxY++;
 	}
 
-	if (BoxOnGoal(s_NboxX, s_NboxY))
+	if (BoxInTheGoal(s_NboxX, s_NboxY))
 	{
 		s_map[s_NboxX][s_NboxY] = '@';
 	}
@@ -124,7 +124,7 @@ void BoxMove(Box box, EKeyCode keyCode)
 	}
 }
 
-bool canPlayerMove(int32_t posX, int32_t posY, EKeyCode keyCode)
+bool canPlayerMove(int posX, int posY, EKeyCode keyCode)
 {
 	switch (s_map[posX][posY])
 	{
@@ -152,7 +152,7 @@ bool canPlayerMove(int32_t posX, int32_t posY, EKeyCode keyCode)
 		if (canBoxMove(box, keyCode))
 		{
 			BoxMove(box, keyCode);
-			s_boxOnGoalCount--;
+			s_boxInTheGoalCount--;
 			return true;
 		}
 		else
@@ -175,7 +175,7 @@ void PlayerMove()
 		s_NPlayerX--;
 		if (canPlayerMove(s_playerX - 1, s_playerY, KEYCODE_W))
 		{
-			if (GoalPos(s_playerX, s_playerY))
+			if (GoalPosition(s_playerX, s_playerY))
 			{
 				s_map[s_playerX][s_playerY] = 'O';
 			}
@@ -187,13 +187,12 @@ void PlayerMove()
 			s_map[--s_playerX][s_playerY] = 'P';
 		}
 	}
-
 	else if (GetButtonDown(KEYCODE_A))
 	{
 		s_NPlayerY--;
 		if (canPlayerMove(s_playerX, s_playerY - 1, KEYCODE_A))
 		{
-			if (GoalPos(s_playerX, s_playerY))
+			if (GoalPosition(s_playerX, s_playerY))
 			{
 				s_map[s_playerX][s_playerY] = 'O';
 			}
@@ -204,13 +203,12 @@ void PlayerMove()
 			s_map[s_playerX][--s_playerY] = 'P';
 		}
 	}
-
 	else if (GetButtonDown(KEYCODE_S))
 	{
 		s_NPlayerX++;
 		if (canPlayerMove(s_playerX + 1, s_playerY, KEYCODE_S))
 		{
-			if (GoalPos(s_playerX, s_playerY))
+			if (GoalPosition(s_playerX, s_playerY))
 			{
 				s_map[s_playerX][s_playerY] = 'O';
 			}
@@ -227,7 +225,7 @@ void PlayerMove()
 		s_NPlayerY++;
 		if (canPlayerMove(s_playerX, s_playerY + 1, KEYCODE_D))
 		{
-			if (GoalPos(s_playerX, s_playerY))
+			if (GoalPosition(s_playerX, s_playerY))
 			{
 				s_map[s_playerX][s_playerY] = 'O';
 			}
@@ -238,6 +236,7 @@ void PlayerMove()
 			s_map[s_playerX][++s_playerY] = 'P';
 		}
 	}
+	
 }
 
 char parseMapType(size_t i, size_t j, char mapType)
@@ -248,14 +247,14 @@ char parseMapType(size_t i, size_t j, char mapType)
 		return false;
 
 	case 'P':
-		s_playerX = i;
-		s_playerY = j;
+		s_playerX = (int)i;
+		s_playerY = (int)j;
 		s_map[i][j] = mapType;
 		return true;
 
 	case 'O':
-		goal[s_goalCount].s_goalX = i;
-		goal[s_goalCount].s_goalY = j;
+		goal[s_goalCount].s_goalX = (int)i;
+		goal[s_goalCount].s_goalY = (int)j;
 
 		s_goalCount++;
 		s_map[i][j] = mapType;
@@ -274,9 +273,8 @@ void clearStage()
 	{
 		s_map[i][MAP_SIZE - 1] = '\0';
 	}
-
 	s_goalCount = 0;
-	s_boxOnGoalCount = 0;
+	s_boxInTheGoalCount = 0;
 	s_playerX = 0;
 	s_playerY = 0;
 }
@@ -305,19 +303,17 @@ void LoadStage(EStageLevel level)
 				break;
 			}
 		}
-
 		if (feof(fp))
 		{
 			break;
 		}
 	}
-
 	fclose(fp);
 }
 
 bool StageOver()
 {
-	if (s_boxOnGoalCount == s_goalCount)
+	if (s_boxInTheGoalCount == s_goalCount)
 	{
 		stageNum++;
 		if (stageNum < 4)
@@ -332,17 +328,22 @@ bool StageOver()
 			return true;
 		}
 	}
-
 	return false;
 }
 
 void UpdateStage()
 {
 	PlayerMove();
-	if (!StageOver())
+	if (StageOver()!=false)
 	{
 		sprintf_s(s_map[0], sizeof(s_map[0]), "> Stage %d", stageNum);
-		sprintf_s(s_map[1], sizeof(s_map[1]), "> 개수 : %d", s_boxOnGoalCount);
+		sprintf_s(s_map[1], sizeof(s_map[1]), "> 개수 : %d", s_boxInTheGoalCount);
+	}
+	if (GetButtonDown(KEYCODE_R))
+	{
+		LoadStage(STAGE_01);
+		sprintf_s(s_map[0], sizeof(s_map[0]), "> Stage %d", stageNum);
+		sprintf_s(s_map[1], sizeof(s_map[1]), "> 개수 : %d", s_boxInTheGoalCount);
 	}
 }
 
