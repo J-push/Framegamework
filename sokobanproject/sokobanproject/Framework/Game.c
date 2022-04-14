@@ -5,7 +5,6 @@
 #include "Timer.h"
 #include "Game/Stage.h"
 
-
 bool Initialize()
 {
 	if (false == InitializeRenderer())
@@ -50,10 +49,10 @@ int32_t Run()
 		processInput();
 		// 업데이트
 		update();
+
 		// 렌더링
 		render();
 	}
-
 
 	return 0;
 }
