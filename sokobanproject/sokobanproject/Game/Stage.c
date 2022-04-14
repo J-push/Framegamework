@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Stage.h"
+#include "Framework/Renderer.h"
 #include "Framework/Timer.h"
 #include "Framework/Input.h"
 
-static int stageNum = 1;
+static int stageNum = STAGE_01;
 static char s_map[MAP_SIZE][MAP_SIZE];
 static int32_t s_goalCount = 0; // 목표 개수
 static int32_t s_boxInTheGoalCount = 0; // 현재 넣은 개수
@@ -134,7 +135,6 @@ bool canPlayerMove(int posX, int posY, EKeyCode keyCode)
 	case 'a':
 		box.s_boxX = posX;
 		box.s_boxY = posY;
-
 		if (canBoxMove(box, keyCode))
 		{
 			BoxMove(box, keyCode);
@@ -144,11 +144,9 @@ bool canPlayerMove(int posX, int posY, EKeyCode keyCode)
 		{
 			return false;
 		}
-
 	case '@':
 		box.s_boxX = posX;
 		box.s_boxY = posY;
-
 		if (canBoxMove(box, keyCode))
 		{
 			BoxMove(box, keyCode);
@@ -159,7 +157,6 @@ bool canPlayerMove(int posX, int posY, EKeyCode keyCode)
 		{
 			return false;
 		}
-
 	default:
 		return true;
 	}
@@ -183,7 +180,6 @@ void PlayerMove()
 			{
 				s_map[s_playerX][s_playerY] = ' ';
 			}
-
 			s_map[--s_playerX][s_playerY] = 'P';
 		}
 	}
@@ -219,7 +215,6 @@ void PlayerMove()
 			s_map[++s_playerX][s_playerY] = 'P';
 		}
 	}
-
 	else if (GetButtonDown(KEYCODE_D))
 	{
 		s_NPlayerY++;
@@ -236,7 +231,6 @@ void PlayerMove()
 			s_map[s_playerX][++s_playerY] = 'P';
 		}
 	}
-	
 }
 
 char parseMapType(size_t i, size_t j, char mapType)
@@ -324,7 +318,7 @@ bool StageOver()
 		else
 		{
 			clearStage();
-			printf("모두 클리어 완료하였습니다!!");
+			sprintf_s(s_map[0], sizeof(s_map[0]), "게임 클리어!");
 			return true;
 		}
 	}
@@ -334,16 +328,16 @@ bool StageOver()
 void UpdateStage()
 {
 	PlayerMove();
-	if (StageOver()!=false)
+	if (!StageOver())
 	{
-		sprintf_s(s_map[0], sizeof(s_map[0]), "> Stage %d", stageNum);
-		sprintf_s(s_map[1], sizeof(s_map[1]), "> 개수 : %d", s_boxInTheGoalCount);
+		sprintf_s(s_map[0], sizeof(s_map[0]), "-> Stage %d", stageNum);
+		sprintf_s(s_map[1], sizeof(s_map[1]), "-> 개수 : %d", s_boxInTheGoalCount);
 	}
 	if (GetButtonDown(KEYCODE_R))
 	{
 		LoadStage(STAGE_01);
-		sprintf_s(s_map[0], sizeof(s_map[0]), "> Stage %d", stageNum);
-		sprintf_s(s_map[1], sizeof(s_map[1]), "> 개수 : %d", s_boxInTheGoalCount);
+		sprintf_s(s_map[0], sizeof(s_map[0]), "-> Stage %d", stageNum);
+		sprintf_s(s_map[1], sizeof(s_map[1]), "-> 개수 : %d", s_boxInTheGoalCount);
 	}
 }
 
